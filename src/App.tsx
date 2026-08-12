@@ -13,12 +13,19 @@ import {
   Sparkles,
   Heart,
   Calendar,
-  Send
+  Send,
+  UserCheck,
+  Wallet,
+  HeartHandshake,
+  Users,
+  Award,
+  ChevronDown
 } from 'lucide-react';
 
 export default function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -26,11 +33,67 @@ export default function App() {
     message: ''
   });
 
+  const toggleFaq = (index: number) => {
+    setOpenFaqIndex(openFaqIndex === index ? null : index);
+  };
+
+  const faqs = [
+    {
+      question: 'Is root canal treatment painful?',
+      answer: 'No. Modern root canal treatments are performed under effective local anesthesia, making the procedure virtually painless and comparable to getting a routine filling. Our team focuses on gentle techniques to keep you comfortable throughout.'
+    },
+    {
+      question: 'How often should I visit the dentist for a routine checkup?',
+      answer: 'It is recommended to schedule a routine dental checkup and professional cleaning every 6 months. Regular visits help detect potential issues early, keep your teeth clean, and ensure long-term oral health.'
+    },
+    {
+      question: 'Is professional teeth whitening safe for my enamel?',
+      answer: 'Yes. Professional teeth whitening performed at a dental clinic uses clinically tested, safe whitening agents that effectively remove stains without harming or weakening your tooth enamel.'
+    },
+    {
+      question: 'How do I book an appointment at Smile Dental Clinic?',
+      answer: 'Booking an appointment is simple! You can call us directly at 7847040917, send us a message on WhatsApp, or submit your details via the contact form on this page. We are open from 9:00 AM to 7:00 PM.'
+    }
+  ];
+
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.phone) return;
     setFormSubmitted(true);
   };
+
+  const whyChooseUs = [
+    {
+      icon: UserCheck,
+      title: 'Experienced Dentists',
+      desc: 'Qualified and gentle dental professionals dedicated to personalized care and precise diagnoses.'
+    },
+    {
+      icon: Sparkles,
+      title: 'Modern Equipment',
+      desc: 'Equipped with contemporary dental tools and sterilization technology for safe, high-standard procedures.'
+    },
+    {
+      icon: Wallet,
+      title: 'Affordable Pricing',
+      desc: 'Transparent pricing and fair treatment plans ensuring quality dental care stays accessible to everyone.'
+    },
+    {
+      icon: HeartHandshake,
+      title: 'Painless Treatment',
+      desc: 'Focus on patient comfort with gentle techniques aimed at minimizing anxiety and discomfort.'
+    },
+    {
+      icon: Clock,
+      title: 'Flexible Timing',
+      desc: 'Convenient opening hours from 9:00 AM to 7:00 PM, making appointment scheduling easy for your routine.'
+    },
+    {
+      icon: Users,
+      title: 'Dedicated Patient Care',
+      desc: 'Warm, welcoming environment with friendly staff focused on long-term patient satisfaction and follow-up.'
+    }
+  ];
 
   const services = [
     {
@@ -99,6 +162,8 @@ export default function App() {
           <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-neutral-700">
             <a href="#about" className="hover:text-teal-600 transition-colors">About</a>
             <a href="#services" className="hover:text-teal-600 transition-colors">Services</a>
+            <a href="#why-us" className="hover:text-teal-600 transition-colors">Why Choose Us</a>
+            <a href="#faq" className="hover:text-teal-600 transition-colors">FAQ</a>
             <a href="#reviews" className="hover:text-teal-600 transition-colors">Reviews</a>
             <a href="#contact" className="hover:text-teal-600 transition-colors">Contact & Hours</a>
           </nav>
@@ -140,6 +205,20 @@ export default function App() {
               className="block py-2 text-neutral-700 hover:text-teal-600 font-medium"
             >
               Services
+            </a>
+            <a
+              href="#why-us"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block py-2 text-neutral-700 hover:text-teal-600 font-medium"
+            >
+              Why Choose Us
+            </a>
+            <a
+              href="#faq"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block py-2 text-neutral-700 hover:text-teal-600 font-medium"
+            >
+              FAQ
             </a>
             <a
               href="#reviews"
@@ -352,6 +431,84 @@ export default function App() {
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* WHY CHOOSE US SECTION */}
+        <section id="why-us" className="py-16 sm:py-20 bg-gradient-to-b from-teal-50/30 via-white to-white border-b border-neutral-200">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6">
+            <div className="max-w-3xl mx-auto text-center space-y-4 mb-12">
+              <h2 className="text-3xl sm:text-4xl font-bold text-neutral-900">Why Choose Us</h2>
+              <p className="text-neutral-600 text-base">
+                Discover why patients trust Smile Dental Clinic for their oral healthcare in Bhubaneswar.
+              </p>
+              <div className="w-12 h-1 bg-teal-600 mx-auto rounded-full"></div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {whyChooseUs.map((item, index) => {
+                const Icon = item.icon;
+                return (
+                  <div
+                    key={index}
+                    className="bg-white p-6 rounded-2xl border border-neutral-200 shadow-xs hover:border-teal-300 transition-all hover:shadow-sm space-y-4"
+                  >
+                    <div className="w-12 h-12 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center shrink-0">
+                      <Icon className="w-6 h-6" />
+                    </div>
+                    <div className="space-y-2">
+                      <h3 className="text-lg font-bold text-neutral-900">{item.title}</h3>
+                      <p className="text-sm text-neutral-600 leading-relaxed">{item.desc}</p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ SECTION */}
+        <section id="faq" className="py-16 sm:py-20 bg-neutral-50/60 border-b border-neutral-200">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6">
+            <div className="text-center space-y-4 mb-12">
+              <h2 className="text-3xl sm:text-4xl font-bold text-neutral-900">Frequently Asked Questions</h2>
+              <p className="text-neutral-600 text-base">
+                Common questions about dental procedures and patient care at Smile Dental Clinic.
+              </p>
+              <div className="w-12 h-1 bg-teal-600 mx-auto rounded-full"></div>
+            </div>
+
+            {/* Accordion List */}
+            <div className="space-y-4">
+              {faqs.map((faq, index) => {
+                const isOpen = openFaqIndex === index;
+                return (
+                  <div
+                    key={index}
+                    className="border border-neutral-200 rounded-2xl overflow-hidden bg-white shadow-xs transition-colors"
+                  >
+                    <button
+                      type="button"
+                      onClick={() => toggleFaq(index)}
+                      className="w-full text-left px-6 py-5 flex items-center justify-between gap-4 font-semibold text-neutral-900 text-base hover:bg-neutral-50/80 transition-colors cursor-pointer"
+                      aria-expanded={isOpen}
+                    >
+                      <span>{faq.question}</span>
+                      <ChevronDown
+                        className={`w-5 h-5 text-teal-600 shrink-0 transition-transform duration-200 ${
+                          isOpen ? 'rotate-180' : ''
+                        }`}
+                      />
+                    </button>
+                    {isOpen && (
+                      <div className="px-6 pb-5 text-sm text-neutral-600 leading-relaxed border-t border-neutral-100 pt-3">
+                        {faq.answer}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </div>
         </section>
