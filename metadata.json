@@ -1,0 +1,6 @@
+{
+  "name": "Smile Dental Clinic",
+  "description": "Single-page responsive landing page for Smile Dental Clinic in Bhubaneswar, Odisha.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
